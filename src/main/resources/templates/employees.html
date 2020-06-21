@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Division</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Timezone</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.division}"></td>
+                    <td th:text="${employee.age}"></td>
+                    <td th:text="${employee.timezone}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <p th:text="'The highest average match score is for the set number =    ' + ${index} + '     : ' + ${maxSet.getAverage()} + '   %  '"></p>
+            <th:block th:each="list : ${maxSet.getPairsList()} ">
+                <p th:text="${list.getFirstEmployee().getName()} + '    with    ' + ${list.getSecondEmployee().getName()} +
+                '---' + ${list.getPercent()} + ' % '  "></p>
+            </th:block>
+            <p>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+            <th:block th:each="set,iter : ${sets}" >
+                <p th:text="${iter.index+1}"></p>
+                <th:block th:each="pair: ${set.getPairsList()} ">
+                    <p th:text="${pair.getFirstEmployee().getName()} + '    with    ' + ${pair.getSecondEmployee().getName()}+
+                    '  =  ' +${pair.getPercent()} + '  % '  "></p>
+                </th:block>
+                <p th:text="'Average score =  ' +  ${set.getAverage()}   + '    %   '  " th:style="'padding:20px'"></p>
+                <p>
+                    --------------------------------------------------------------------------------------------------------------------------------</p>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
